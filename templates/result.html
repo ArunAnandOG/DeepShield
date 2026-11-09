@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="card">
+        <h2>Analysis Verdict</h2>
+
+        <div class="result-display-area">
+            <video controls>
+                <source src="/uploads/{{ filename }}" alt="Analyzed Frame">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        {% if prediction == "REAL" %}
+            <div class="verdict real">REAL ✅</div>
+        {% elif prediction == "FAKE" %}
+            <div class="verdict fake">FAKE ❌</div>
+        {% elif prediction == "FAKE (Temporal)" %}
+            <div class="verdict fake" style="font-size: 16px;">FAKE (Temporal Flaw) ❌</div>
+        {% else %}
+            <div class="verdict noface">NO FACE FOUND ⚠️</div>
+        {% endif %}
+
+        <div class="confidence">
+            Confidence: <strong>{{ confidence }}%</strong>
+        </div>
+
+        <a href="/" class="btn-link">
+            <button class="super-button">
+                <span>Upload Another Video</span>
+                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+        </a>
+    </div>
+
+</body>
+</html>
